@@ -9,8 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "w-full bg-secondary hover:bg-tertiary text-white font-bold py-4 rounded-[20px] transition-colors shadow-lg cursor-pointer",
-        secondary: "w-full bg-white text-secondary hover:bg-gray-50 border-2 border-cyan-400 rounded-[20px] font-bold shadow-md transition-colors cursor-pointer",
+        primary: "w-full bg-secondary hover:bg-tertiary text-white font-bold py-4 rounded-[10px] transition-colors shadow-lg cursor-pointer",
+        secondary: "w-full bg-white text-secondary hover:bg-gray-50 border-2 border-cyan-400 rounded-[10px] font-bold shadow-md transition-colors cursor-pointer",
         // outline:
         //   "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         // secondary:
