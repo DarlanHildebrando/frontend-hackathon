@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React from 'react'
 
 export default function page() {
     return (
@@ -10,7 +9,6 @@ export default function page() {
                 alt=""
                 className='absolute bottom-0 left-0 w-full h-auto z-0'
             />
-
             {/* NAV BAR */}
             <div className='w-full px-50 py-6'>
                 <div className='flex items-center justify-between'>
