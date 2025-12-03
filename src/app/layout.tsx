@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={nunito.variable}>
-      <body className="antialiased">
+      <body className="font-nunito bg-[#F8FAFA]">
         {children}
       </body>
     </html>
