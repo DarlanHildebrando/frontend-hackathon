@@ -56,7 +56,7 @@
   --color-azul-900: #053345;
   --font-nunito: var(--font-nunito);
 
-  --colorAzulFont: var(--font-color-primary);
+  --color-quatro: var(--quatro);
 
 }
 
@@ -67,7 +67,7 @@
   --background-input: #ECFEFF;
   --secondary: #13BFD7;
   --tertiary: #1F9FC0;
-  --font-color-primary: #0F4A5C;
+  --quatro: #0F4A5C;
 
   /* --radius: 0.625rem; 
   

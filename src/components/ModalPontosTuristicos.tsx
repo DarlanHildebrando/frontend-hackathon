@@ -43,8 +43,8 @@ export function ModalPontosTuristicosDiv({
             >
                 <div className="border flex">
                     {/* LADO ESQUERDO */}
-                    <div className="p-6 border w-1/2 space-y-4">
-                        <h2 className="text-xl font-bold text-color-azul-900">Praia de Jurerê</h2>
+                    <div className="p-6 py-12 w-1/2 h-[500px] space-y-4 justify-center items-center">
+                        <h2 className="text-xl font-bold text-quatro">Praia de Jurerê</h2>
 
                         <img
                             src="./elementos_temporarios/jurere.svg"
@@ -52,10 +52,8 @@ export function ModalPontosTuristicosDiv({
                             className="rounded-xl"
                         />
 
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text ever
-                            since the 1500s...
+                        <p className="text-quatro font-semibold text-sm leading-relaxed">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has surviv
                         </p>
 
                         <Button variant="primary">
@@ -64,7 +62,7 @@ export function ModalPontosTuristicosDiv({
                     </div>
 
                     {/* LADO DIREITO — CHAT */}
-                    <div className="w-1/2 p-6">
+                    <div className="w-1/2 p-6 border">
                         pintooooooooooooooo
                     </div>
                 </div>
