@@ -1,21 +1,19 @@
 import Journeys from "@/components/Journeys";
+import Sidebar from "@/components/Sidebar";
 import Tainhometro from "@/components/Tainhometro";
 import TainhoPortal from "@/components/TainhoPortal";
 export default function Home() {
   return (
-    <div className="flex min-h-screen dark:bg-black">
-      <div className="bg-blue-200 w-80">
-        pintoo
-      </div>
-      <div className="w-auto flex">
-        <div className="">
-          <TainhoPortal />
-        </div>
-        <div className="flex flex-col gap-10">
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="w-full flex items-center justify-center gap-14 p-14">
+        <TainhoPortal />  {/* NÃO cresce */}
+        <div className="flex flex-col gap-8 justify-start flex-1">
           <Tainhometro happines={5} />
           <Journeys />
         </div>
       </div>
     </div>
+
   )
 }

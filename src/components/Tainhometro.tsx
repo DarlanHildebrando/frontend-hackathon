@@ -7,7 +7,7 @@ export default function Tainhometro({ happines }: { happines: number }) {
     // calcula posição proporcional
     const pointerX = (happines / 10) * maxWidth
     return (
-        <div className="bg-[#F8FAFA] border border-[#0F4A5C]/25 flex flex-col items-center gap-7 h-fit p-6 rounded-xl">
+        <div className="bg-[#F8FAFA] border border-[#0F4A5C]/25 flex flex-col items-center gap-7 h-fit p-6 rounded-[12px]">
             <p className='text-2xl font-bold text-[#0F4A5C]'>Tainhômetro</p>
             <div className="flex flex-col gap-4 p-6 ">
                 <div className="flex px-7 gap-14">
