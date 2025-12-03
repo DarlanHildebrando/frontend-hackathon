@@ -2,7 +2,7 @@ export default function TextBalloon({ text }: { text: string }) {
     return (
         <>
             
-            <div className="absolute bottom-[410px] left-1/2 -translate-x-1/2 animate-bounce">
+            <div className="absolute bottom-[410px] left-1/2 -translate-x-1/2 letraPula">
                 <div className="bg-white rounded-[12px] shadow-lg px-5 py-3 text-[#066C89] wrap-break-word font-semibold text-center max-w-[280px] relative">
                     {/* Texto dinâmico */}
                     {text}
