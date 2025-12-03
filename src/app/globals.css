@@ -99,6 +99,9 @@
   --sidebar-ring: oklch(0.705 0.015 286.067); */
 }
 
+.letraPula {
+    @apply animate-bounce hover:transition duration-300;
+}
 
 @layer base {
   * {
