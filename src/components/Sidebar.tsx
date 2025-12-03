@@ -6,10 +6,9 @@ import { LogOut } from "lucide-react";
 
 export default function Sidebar() {
   return (
-    <aside className="h-screen w-90 flex flex-col items-center border-r-2 border-[#BCD7DE] bg-white py-10">
+    <aside className="h-screen w-100 flex flex-col items-center border-r-2 gap-8 border-[#BCD7DE] bg-white py-10">
       <Image src="./logo/Island.svg" alt="" width={144} height={28}/>
       <nav className="flex flex-col gap-6 w-full px-6">
-        
         <Link
           href="/perfil"
           className="flex items-center gap-4 w-full h-14 px-4 rounded-2xl bg-[#13BFD7] text-white hover:bg-[#10aec5] transition-all"
