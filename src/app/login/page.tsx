@@ -1,10 +1,28 @@
+"use client";
+
+import { ModalPontosTuristicosDiv } from '@/components/ModalPontosTuristicos';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
 
 export default function page() {
+
+    const router = useRouter();
+    const [open, setOpen] = useState(false)
+
     return (
         <div>
+
+            <button
+                onClick={() => setOpen(true)}
+                className="text-blue-600 underline"
+            >
+                Ver Pontos Turísticos
+            </button>
+
+            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="trilha" />
+
             <img
                 src="./elements/waves_background.svg"
                 alt=""
@@ -80,7 +98,9 @@ export default function page() {
                                 ENTRAR
                             </Button>
 
-                            <Button variant={'secondary'}>
+                            <Button variant={'secondary'}
+                                onClick={() => router.push("/cadastro")}
+                            >
                                 CRIAR NOVA CONTA
                             </Button>
                         </div>

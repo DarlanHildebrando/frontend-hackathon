@@ -1,8 +1,61 @@
+"use client";
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React from 'react'
+import { useRouter } from "next/navigation";
+import React, { useState } from 'react'
+import { userService } from '@/services/user/userService';
 
-export default function page() {
+export default function Page() {
+    const router = useRouter();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+        // Limpa o erro quando o usuário começa a digitar
+        if (error) setError('');
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+
+        // Validação básica no frontend
+        if (!formData.name || !formData.email || !formData.password) {
+            setError('Preencha todos os campos');
+            setLoading(false);
+            return;
+        }
+
+        if (formData.password.length < 7) {
+            setError('A senha deve ter no mínimo 7 caracteres');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await userService.createUser(formData);
+            console.log('Usuário criado:', response);
+            
+            // Redireciona para login após criar conta
+            router.push('/login');
+        } catch (error: any) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div>
             <img
@@ -14,7 +67,6 @@ export default function page() {
             {/* NAV BAR */}
             <div className='w-full px-50 py-6'>
                 <div className='flex items-center justify-between'>
-
                     <img src="./logo/logo-rosto-tainho.svg" alt="Island Logo" className='w-35 h-12' />
 
                     {/*SELETOR DE IDIOMAS*/}
@@ -47,6 +99,13 @@ export default function page() {
                             Seu passaporte para explorar, embarque nessa viagem!
                         </p>
 
+                        {/* Mensagem de erro */}
+                        {error && (
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-[12px] mb-4">
+                                {error}
+                            </div>
+                        )}
+
                         <div className="space-y-3">
                             <div>
                                 <label className="block text-tertiary font-semibold mb-1">
@@ -54,7 +113,11 @@ export default function page() {
                                 </label>
                                 <Input
                                     type="text"
+                                    name="name"
                                     placeholder="Nome"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    disabled={loading}
                                     className="w-full px-4 py-3 bg-background-input border-2 border-tertiary rounded-[12px] focus:outline-none focus:border-[0.5px] focus:border-tertiary/50 text-tertiary"
                                 />
                             </div>
@@ -64,8 +127,12 @@ export default function page() {
                                     E-mail
                                 </label>
                                 <Input
-                                    type="text"
+                                    type="email"
+                                    name="email"
                                     placeholder="E-mail"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    disabled={loading}
                                     className="w-full px-4 py-3 bg-background-input border-2 border-tertiary rounded-[12px] focus:outline-none focus:border-[0.5px] focus:border-tertiary/50 text-tertiary"
                                 />
                             </div>
@@ -76,23 +143,35 @@ export default function page() {
                                 </label>
                                 <Input
                                     type="password"
+                                    name="password"
                                     placeholder="**********"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    disabled={loading}
                                     className="w-full px-4 py-1 bg-background-input border-2 border-tertiary rounded-[12px] focus:outline-none focus:border-[0.5px] focus:border-tertiary/50 text-tertiary"
                                 />
                             </div>
 
-                            <Button variant={'primary'}>
-                                CRIAR NOVA CONTA
+                            <Button 
+                                variant={'primary'}
+                                onClick={handleSubmit}
+                                disabled={loading}
+                                className="w-full"
+                            >
+                                {loading ? 'CRIANDO...' : 'CRIAR NOVA CONTA'}
                             </Button>
 
-                            <Button variant={'secondary'}>
+                            <Button 
+                                variant={'secondary'}
+                                onClick={() => router.push("/login")}
+                                disabled={loading}
+                                className="w-full"
+                            >
                                 ENTRAR
                             </Button>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )
