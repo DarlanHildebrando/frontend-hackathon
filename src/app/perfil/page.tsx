@@ -1,10 +1,36 @@
+"use client"
+
 import Sedbar from '@/components/Sidebar'
-import { Button } from '@/components/ui/button'
-import { Check, Circle, MapPinCheck, Pen, Sailboat, UserRoundX } from 'lucide-react'
-import Image from 'next/image'
+import { userService } from '@/services/user/userService'
+import { IUser } from '@/types/user'
+import { Check, MapPinCheck, Pen, Sailboat, UserRoundX } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function page() {
+    const [user, setUser] = useState<IUser | null>(null);
+
+    useEffect(() => {
+        console.log("data")
+        async function loadProfile() {
+            try {
+                const userId = localStorage.getItem('id_cliente');
+                if (userId) {
+                    console.log("data")
+                    const data = await userService.getProfile(userId);
+                    setUser(data);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        loadProfile();
+    }, []);
+
+    // if (!user) return <p>Carregando...</p>;
+
+
     const lugares = [
         { nome: "Praia do não sei da onde", cor: "text-[#F4A420]" },
         { nome: "Trilha do Tarzan", cor: "text-[#2AC979]" },
@@ -22,14 +48,6 @@ export default function page() {
         { nome: "Aventura na gastronomia do sambaqui", cor: "text-[#B06CE3]" },
         { nome: "Explorando a fauna e flora da ilha", cor: "text-[#2AC979]" },
     ];
-    const user = {
-        nome: 'João Silva',
-        email: 'gogo@gmail.com',
-        senha: '********',
-        lugaresV: 15,
-        jornadasC: 3
-    }
-
     return (
         <div className="flex items-start w-full h-full bg-zinc-50 font-nunito">
             <div className="w-30">
@@ -43,9 +61,9 @@ export default function page() {
                         <div className="font-nunito">
                             <h1 className="text-3xl font-bold">Informações Básicas</h1>
                             <div className="text-2xl flex flex-col gap-3 p-5 pr-50 border-2 border-azul-200 rounded-2xl">
-                                <label className="flex gap-3 font-bold">Nome: <p className="text-azul-400">{user.nome}</p></label>
-                                <label className="flex gap-3 font-bold">Email:<p className='text-azul-400'> {user.email}</p></label>
-                                <label className="flex gap-3 font-bold">Senha:<p className='text-azul-400'> {user.senha}</p></label>
+                                <label className="flex gap-3 font-bold">Nome: <p className="text-azul-400">{user?.nome}</p></label>
+                                <label className="flex gap-3 font-bold">Email:<p className='text-azul-400'> {user?.email}</p></label>
+                                <label className="flex gap-3 font-bold">Senha:<p className='text-azul-400'> {user?.senha}</p></label>
                             </div>
                         </div>
                     </div>
@@ -78,7 +96,7 @@ export default function page() {
 
                                 <h3 className="text-[#13BFD7] border-b text-2xl font-bold mb-5 flex mr-10 items-center gap-2">
                                     <MapPinCheck className='w-9 h-9' />
-                                    {user.lugaresV} Lugares Visitados
+                                    {user?.lugaresV} Lugares Visitados
                                 </h3>
 
                                 <div className="flex">
@@ -114,7 +132,7 @@ export default function page() {
 
                         <h3 className="text-[#13BFD7] border-b text-2xl font-bold mb-6 flex items-center gap-2">
                             <Sailboat className='w-10 h-10' />
-                            {user.jornadasC} Jornadas Concluídas
+                            {user?.jornadasC} Jornadas Concluídas
                         </h3>
 
                         <div className="flex">
