@@ -1,8 +1,10 @@
+"use client"
 import { Volleyball, TreePalm, ChefHat } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { type LucideIcon } from "lucide-react";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
+import { useScore } from "@/context/scoreContext";
 
 type Category = "praia" | "trilha" | "larica";
 
@@ -46,7 +48,6 @@ export default function Journeys() {
             ]
         }
     ]
-
     const iconsByCategory: Record<Category, LucideIcon> = {
         praia: Volleyball,
         trilha: TreePalm,
@@ -57,30 +58,47 @@ export default function Journeys() {
         trilha: "#00D492",
         larica: "#A684FF"
     }
-
+    const { addScore, removeScore } = useScore()
+    function handleCheckChange(checked: boolean) {
+        if (checked) addScore(0.2)
+        else removeScore(0.2)
+    }
     return (
-        <div className="bg-[#F8FAFA] border border-[#0F4A5C]/25 rounded-[12px] flex flex-col items-center p-6 gap-7">
-            <h2 className="text-2xl font-bold text-[#0F4A5C]">Suas jornadas com Tainho</h2>
+        <div className="bg-[#F8FAFA] border border-[#0F4A5C]/25 rounded-[12px] flex flex-col items-center p-6 gap-3">
+            <h2 className="text-xl font-bold text-[#0F4A5C]">Suas jornadas com Tainho</h2>
             <div className="w-full">
                 <Accordion type="single" collapsible className="w-full">
                     {journeys.map(journey => (
                         <AccordionItem key={journey.id} value={`item-${journey.id}`}>
-                            <AccordionTrigger>{journey.name}</AccordionTrigger>
-                            <AccordionContent className="flex flex-col gap-4 text-balance">
+                            <AccordionTrigger><p className="text-lg">{journey.name}</p></AccordionTrigger>
+                            <AccordionContent className="flex flex-col text-balance pl-6">
                                 {journey.address.map(add => {
                                     const Icon = iconsByCategory[add.category]
                                     const color = colorsByCategory[add.category]
                                     return (
                                         <div key={add.id}
-                                            className="flex items-center gap-2"
-                                            style={{ color: color }}
-                                        >
-                                            <Checkbox id={`item-${add.id}`} />
-                                            <Label id={`item-${add.id}`} />
-                                            <Icon
-                                                className='w-5 h-5'
-                                            />
-                                            <p className='text-lg font-bold'>{add.name}</p>
+                                            className="flex gap-3 border-b border-[#0F4A5C]/25 last:border-b-0 hover:border-[#BCD7DE]">
+                                            <Label
+                                                key={add.id}
+                                                htmlFor={`item-${add.id}`}
+                                                className="flex-1 cursor-pointer"
+                                            >
+                                                <div
+                                                    className="flex items-center gap-4 transition-colors py-4 w-full"
+                                                    style={{ color }}
+                                                >
+                                                    <Checkbox
+                                                        id={`item-${add.id}`}
+                                                        className="cursor-pointer"
+                                                        onCheckedChange={(checked) => handleCheckChange(!!checked)}
+                                                    />
+                                                    <Icon className="size-6" />
+                                                    <p className="text-[16px] font-bold">{add.name}</p>
+                                                </div>
+                                            </Label>
+                                            <button className="cursor-pointer font-bold text-[16px] text-[#0F4A5C]">
+                                                Ver mais
+                                            </button>
                                         </div>
                                     )
                                 })}

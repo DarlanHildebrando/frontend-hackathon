@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import { ScoreProvider } from "@/context/scoreContext";
 
 // Fonte Nunito
 const nunito = Nunito({
@@ -21,9 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={nunito.variable}>
-      <body className="font-nunito bg-[#F8FAFA]">
-        {children}
-      </body>
+      <ScoreProvider>
+        <body className="font-nunito bg-[#F8FAFA]">
+          {children}
+        </body>
+      </ScoreProvider>
     </html>
   );
 }

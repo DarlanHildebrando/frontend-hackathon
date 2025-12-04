@@ -1,38 +1,43 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
-import { LogOut } from "lucide-react";
+import Image from "next/image"
+import Link from "next/link"
+import { LogOut } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export default function Sidebar() {
+  const pathname = usePathname()
+  const imgPerfil = `/nossoLucide/${pathname === "/perfil" ? "userB" : "userA"}.svg`
+
   return (
-    <aside className="h-screen w-100 flex flex-col items-center border-r-2 gap-8 border-[#BCD7DE] bg-white py-10">
-      <Image src="./logo/Island.svg" alt="" width={144} height={28}/>
-      <nav className="flex flex-col gap-6 w-full px-6">
+    <aside className="h-screen w-[400px] flex flex-col items-center border-r-2 gap-11 border-[#0F4A5C]/25 bg-white py-6">
+      <Image src="./logo/Island.svg" alt="" width={4*30} height={28} />
+      <nav className="flex flex-col gap-3 w-full px-6">
         <Link
           href="/perfil"
-          className="flex items-center gap-4 w-full h-14 px-4 rounded-2xl bg-[#13BFD7] text-white hover:bg-[#10aec5] transition-all"
+          className={`flex items-center gap-4 w-full p-2 rounded-[12px] ${pathname === "/perfil" ? "bg-[#13BFD7] text-white hover:bg-[#10aec5]" : "text-[#13BFD7]"} transition-all`}
         >
           <Image
-            src="/nossoLucide/userB.svg"
-            width={36}
-            height={36}
+            src={imgPerfil}
+            width={28}
+            height={28}
             alt="Perfil"
           />
-          <span className="text-2xl font-semibold">Perfil</span>
+          <span className="text-xl font-semibold">Perfil</span>
         </Link>
 
         <Link
-          href="/tainho"
-          className="flex items-center gap-4 w-full h-14 px-4 rounded-2xl hover:bg-[#E6F9FC] transition-all"
+          href="/"
+          className={`flex items-center gap-4 w-full p-2 rounded-[12px] transition-all ${pathname === "/" ? "bg-[#13BFD7] text-white hover:bg-[#10aec5]" : "text-[#13BFD7] hover:bg-[#E6F9FC]"}`}
         >
           <Image
             src="/logoTainho.svg"
-            width={32}
-            height={32}
+            width={28}
+            className={`${pathname === "/" && "border-white border rounded-[4px]"}`}
+            height={28}
             alt="Tainho"
           />
-          <span className="text-2xl text-[#13BFD7] font-semibold">
+          <span className="text-lg font-semibold">
             Tainho
           </span>
         </Link>
@@ -42,15 +47,15 @@ export default function Sidebar() {
 
       <div className="w-full px-6 mb-6">
         <Link
-          href="/"
-          className="flex items-center gap-3 justify-center w-full h-14 rounded-2xl border-2 border-[#13BFD7] hover:bg-[#E6F9FC] transition-all"
+          href="/login"
+          className="flex items-center gap-3 justify-center w-full rounded-[12px]"
         >
-          <LogOut className="w-7 h-7 text-[#13BFD7]" />
-          <span className="text-2xl font-semibold text-[#13BFD7]">
+          <LogOut className="size-7 text-[#13BFD7]" />
+          <span className="text-lg font-semibold text-[#13BFD7]">
             Sair da conta
           </span>
         </Link>
       </div>
     </aside>
-  );
+  )
 }
