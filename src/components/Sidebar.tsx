@@ -8,8 +8,24 @@ import { useScore } from "@/context/scoreContext"
 
 export default function Sidebar() {
   const pathname = usePathname()
-  const {score} = useScore()
+  const { score } = useScore()
   const imgPerfil = `/nossoLucide/${pathname === "/perfil" ? "userB" : "userA"}.svg`
+  function getTainhoImage(score: number) {
+    switch (true) {
+      case score <= 2:
+        return "/tainho/TainhoBravo.svg";
+      case score <= 4:
+        return "/tainho/TainhoTriste.svg";
+      case score <= 6:
+        return "/tainho/TainhoNeutro.svg";
+      case score <= 8:
+        return "/tainho/TainhioFeliz.svg";
+      case score <= 10:
+        return "/tainho/TainhoMuitoFeliz.svg";
+      default:
+        return "/tainho/TainhoNeutro.svg";
+    }
+  }
 
   return (
     <aside className="h-screen w-[400px] flex flex-col items-center border-r-2 gap-11 border-[#0F4A5C]/25 bg-white py-6">
@@ -33,7 +49,7 @@ export default function Sidebar() {
           className={`flex items-center gap-4 w-full p-2 rounded-[12px] transition-all ${pathname === "/" ? "bg-[#13BFD7] text-white hover:bg-[#10aec5]" : "text-[#13BFD7] hover:bg-[#E6F9FC]"}`}
         >
           <Image
-            src="/logoTainho.svg"
+            src={getTainhoImage(score)}
             width={28}
             className={`${pathname === "/" && "border-white border rounded-[4px]"}`}
             height={28}
