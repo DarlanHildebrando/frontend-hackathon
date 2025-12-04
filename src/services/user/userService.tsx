@@ -1,4 +1,7 @@
-import { ICreateUser } from '@/types/user';
+// src/services/user/userService.ts
+
+import { ICreateUser, IUser } from '@/types/user';
+import { apiHelper } from '../apiHelper';
 
 const API_URL = 'http://localhost:8080';
 
