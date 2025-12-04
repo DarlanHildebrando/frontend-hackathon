@@ -5,6 +5,8 @@ import { type LucideIcon } from "lucide-react";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import { useScore } from "@/context/scoreContext";
+import { useState } from "react";
+import { ModalPontosTuristicosDiv } from "./ModalPontosTuristicos";
 
 type Category = "praia" | "trilha" | "larica";
 
@@ -22,6 +24,9 @@ interface Journey {
 }
 
 export default function Journeys() {
+
+    const [open, setOpen] = useState(false);
+
     const journeys: Journey[] = [
         {
             id: 1,
@@ -104,9 +109,14 @@ export default function Journeys() {
                                                     <p className="text-[16px] font-bold">{add.name}</p>
                                                 </div>
                                             </Label>
-                                            <button className="cursor-pointer font-bold text-[16px] text-[#0F4A5C]">
-                                                Ver mais
+                                            <button
+                                                onClick={() => setOpen(true)}
+                                                className="cursor-pointer font-bold text-[16px] text-[#0F4A5C]"
+                                            >
+                                                ver mais
                                             </button>
+
+                                            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="larica" />
                                         </div>
                                     )
                                 })}
