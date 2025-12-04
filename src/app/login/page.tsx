@@ -59,7 +59,7 @@ export default function Page() {
                 Ver Pontos Turísticos
             </button>
 
-            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="trilha" />
+            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="larica" />
 
             <img
                 src="./elements/waves_background.svg"
