@@ -94,7 +94,10 @@ export default function page() {
                             <div className="flex flex-col gap-1 text-lg text-[#09090B]">
                                 <label className="flex gap-3">Nome: <p>{user?.name}</p></label>
                                 <label className="flex gap-3">Email:<p> {user?.email}</p></label>
-                                <label className="flex gap-3">Senha:<p> {user?.password}</p></label>
+                                <label className="flex gap-3">Senha:<p className="tracking-[0.1em] font-bold select-none overflow-x-hidden">
+                                    {user?.password.replace(/./g, "*")}
+                                </p>
+                                </label>
                             </div>
                         </div>
                     </div>
