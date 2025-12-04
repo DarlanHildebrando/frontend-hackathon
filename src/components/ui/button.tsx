@@ -9,8 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "w-full bg-secondary hover:bg-tertiary text-white font-bold py-4 rounded-[10px] transition-colors shadow-lg cursor-pointer",
-        secondary: "w-full bg-white text-secondary hover:bg-gray-50 border-2 border-cyan-400 rounded-[10px] font-bold shadow-md transition-colors cursor-pointer",
+        primary: "flex items-center justify-center gap-4 w-full py-2 rounded-[8px] border border-[#239fb0] text-white bg-[#13BFD7] shadow-[0_2px_0_0_#239fb0] transition-all duration-200 hover:translate-y-[2px] hover:shadow-[0_1px_0_0_#239fb0] active:translate-y-[4px] active:shadow-[0_0px_0_0_#239fb0] cursor-pointer",
+        secondary: "flex items-center justify-center gap-4 w-full py-2 rounded-[8px] border border-[#239fbo] text-[#239fb0] shadow-[0_2px_0_0_#239fb0] transition-all duration-200 hover:translate-y-[2px] hover:shadow-[0_1px_0_0_#239fb0] active:translate-y-[4px] active:shadow-[0_0px_0_0_#239fb0] cursor-pointer",
         // outline:
         //   "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         // secondary:
