@@ -11,7 +11,7 @@ interface ScoreContextValue {
 const ScoreContext = createContext<ScoreContextValue | undefined>(undefined)
 
 export function ScoreProvider({ children }: { children: React.ReactNode }) {
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(5)
 
   function addScore(value: number) {
     setScore(prev => prev + value)

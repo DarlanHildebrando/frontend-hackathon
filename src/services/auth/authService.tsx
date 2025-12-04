@@ -22,13 +22,8 @@ export const authService = {
 
             const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Erro ao fazer login');
-            }
-
-            // Salva o token no localStorage
-            if (data.token) {
-                localStorage.setItem('authToken', data.token);
+            if (data.id) {
+                localStorage.setItem('id_cliente', data.id);
             }
 
             return data;

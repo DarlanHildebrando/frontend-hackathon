@@ -4,14 +4,16 @@ import Image from "next/image"
 import Link from "next/link"
 import { LogOut } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useScore } from "@/context/scoreContext"
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const {score} = useScore()
   const imgPerfil = `/nossoLucide/${pathname === "/perfil" ? "userB" : "userA"}.svg`
 
   return (
     <aside className="h-screen w-[400px] flex flex-col items-center border-r-2 gap-11 border-[#0F4A5C]/25 bg-white py-6">
-      <Image src="./logo/Island.svg" alt="" width={4*30} height={28} />
+      <Image src="./logo/Island.svg" alt="" width={4 * 30} height={28} />
       <nav className="flex flex-col gap-3 w-full px-6">
         <Link
           href="/perfil"
@@ -49,6 +51,7 @@ export default function Sidebar() {
         <Link
           href="/login"
           className="flex items-center gap-3 justify-center w-full rounded-[12px]"
+          onClick={() => localStorage.clear}
         >
           <LogOut className="size-7 text-[#13BFD7]" />
           <span className="text-lg font-semibold text-[#13BFD7]">

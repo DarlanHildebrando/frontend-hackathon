@@ -89,7 +89,7 @@ export default function page() {
                     <h2 className="text-xl font-bold">Estatísticas</h2>
                     <div className="flex flex-col overflow-y-scroll h-full gap-4 ">
                         <div className="bg-[#F8FAFA] border border-[#0F4A5C]/25 rounded-[12px] p-4">
-                            <div className="p-4">
+                            <div className="">
                                 <div className="border-b border-[#0F4A5C]/25 text-[#0F4A5C] flex items-center gap-2 pb-4">
                                     <MapPinCheck className='size-7' />
                                     <h2 className=" text-lg font-bold ">
