@@ -6,10 +6,10 @@ import React, { useState, useRef, useEffect } from "react"
 type Tema = "larica" | "trilha" | "praia"
 
 type Message = {
-  id: string
-  text: string
-  sender: "user" | "bot"
-  timestamp: Date
+    id: string
+    text: string
+    sender: "user" | "bot"
+    timestamp: Date
 }
 
 export function ModalPontosTuristicosDiv({
@@ -38,6 +38,28 @@ export function ModalPontosTuristicosDiv({
         praia: "border-yellow-400"
     }
 
+    const temaConfig = {
+        larica: {
+            primary: "bg-purple-500 hover:bg-purple-600",
+            bubble: "bg-purple-100",
+            gradientFrom: "from-purple-100/60",
+            gradientTo: "to-white",
+        },
+        trilha: {
+            primary: "bg-green-500 hover:bg-green-600",
+            bubble: "bg-green-100",
+            gradientFrom: "from-green-100/60",
+            gradientTo: "to-white",
+        },
+        praia: {
+            primary: "bg-yellow-500 hover:bg-yellow-600",
+            bubble: "bg-yellow-100",
+            gradientFrom: "from-yellow-100/60",
+            gradientTo: "to-white",
+        },
+    };
+
+
     // Prompts pré-definidos que o usuário pode escolher
     const promptOptions = [
         { id: "historia", label: "📖 História do lugar", prompt: "Conte a história deste lugar" },
@@ -64,7 +86,7 @@ export function ModalPontosTuristicosDiv({
             sender: "user",
             timestamp: new Date()
         }
-        
+
         setMessages(prev => [...prev, userMessage])
         setIsLoading(true)
 
@@ -80,7 +102,7 @@ export function ModalPontosTuristicosDiv({
             //     })
             // })
             // const data = await response.json()
-            
+
             // SIMULAÇÃO DE RESPOSTA (REMOVA ISSO QUANDO INTEGRAR COM O BACKEND)
             await new Promise(resolve => setTimeout(resolve, 1500))
             const botMessage: Message = {
@@ -89,7 +111,7 @@ export function ModalPontosTuristicosDiv({
                 sender: "bot",
                 timestamp: new Date()
             }
-            
+
             setMessages(prev => [...prev, botMessage])
         } catch (error) {
             console.error("Erro ao buscar resposta:", error)
@@ -139,14 +161,19 @@ export function ModalPontosTuristicosDiv({
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                         </p>
 
-                        <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                        <Button
+                            className={`
+                            w-full text-white font-bold py-4 rounded-[10px] transition-colors shadow-lg cursor-pointer
+                            ${temaConfig[tema].primary}
+                        `}
+                        >
                             Ver no mapa
                         </Button>
                     </div>
 
                     {/* LADO DIREITO — CHAT */}
                     <div className="w-1/2 border-l border-gray-200 flex flex-col relative bg-gradient-to-b from-blue-50/30 to-white">
-                        
+
                         {/* ÁREA DAS MENSAGENS */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-3">
                             {messages.map((message) => (
@@ -162,16 +189,17 @@ export function ModalPontosTuristicosDiv({
                                             className="w-8 h-8 rounded-full mr-2 flex-shrink-0"
                                         />
                                     )}
-                                    
+
                                     <div
                                         className={`
-                                            px-4 py-2.5 rounded-2xl max-w-[85%] shadow-sm text-sm
-                                            ${message.sender === "user" 
-                                                ? "bg-white text-gray-800 rounded-br-none" 
-                                                : "bg-[#DFF1F6] text-gray-800 rounded-bl-none"
+                                                px-4 py-2.5 rounded-2xl max-w-[85%] shadow-sm text-sm
+                                                ${message.sender === "user"
+                                                ? "bg-white text-gray-800 rounded-br-none"
+                                                : `${temaConfig[tema].bubble} text-gray-800 rounded-bl-none`
                                             }
-                                        `}
+                                     `}
                                     >
+
                                         {message.text}
                                     </div>
                                 </div>
@@ -185,7 +213,7 @@ export function ModalPontosTuristicosDiv({
                                         alt="Tainho"
                                         className="w-8 h-8 rounded-full mr-2 flex-shrink-0"
                                     />
-                                    
+
                                     <div className="bg-[#DFF1F6] text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-none shadow-sm">
                                         <div className="flex space-x-1">
                                             <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
@@ -205,28 +233,25 @@ export function ModalPontosTuristicosDiv({
                                 {promptOptions.map((option) => (
                                     <button
                                         key={option.id}
+                                        className={`
+                                        px-3 py-2 text-xs font-bold rounded-lg shadow-sm transition-all
+                                        bg-gradient-to-r ${temaConfig[tema].primary}
+                                        hover:brightness-110
+                                        text-white
+                                    `}
                                         onClick={() => handlePromptClick(option.prompt, option.label)}
-                                        disabled={isLoading}
-                                        className="
-                                            px-3 py-2 text-xs font-medium
-                                            bg-gradient-to-r from-blue-500 to-cyan-500
-                                            text-white rounded-lg
-                                            hover:from-blue-600 hover:to-cyan-600
-                                            disabled:opacity-50 disabled:cursor-not-allowed
-                                            transition-all duration-200
-                                            shadow-sm hover:shadow-md
-                                        "
                                     >
                                         {option.label}
                                     </button>
                                 ))}
+
                             </div>
                         </div>
 
                         {/* AVATAR DO MASCOTE */}
                         <div className="absolute bottom-20 right-3">
                             <div className="relative">
-                               
+
                                 {isLoading && (
                                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse border-2 border-white"></div>
                                 )}
