@@ -22,7 +22,7 @@ export default function Tainhometro() {
                 <div className="relative inline-block">
                     <Image
                         alt=""
-                        src="/tainho/BarraTainhometro.svg"
+                        src="/tainho/BarraTainhometroDegrade.svg"
                         width={674}
                         height={0}
                     />

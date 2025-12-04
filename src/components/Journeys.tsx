@@ -8,13 +8,14 @@ import { useScore } from "@/context/scoreContext";
 import { useState } from "react";
 import { ModalPontosTuristicosDiv } from "./ModalPontosTuristicos";
 
-type Category = "praia" | "trilha" | "larica";
+type Category = "PRAIA" | "TRILHA" | "LARICA";
 
 interface Address {
     id: number;
     name: string;
     check: boolean;
     category: Category;
+    image_url: string;
 }
 
 interface Journey {
@@ -25,51 +26,52 @@ interface Journey {
 
 export default function Journeys() {
 
-    const [open, setOpen] = useState(false);
+    const [openModalId, setOpenModalId] = useState<number | null>(null);
 
     const journeys: Journey[] = [
         {
             id: 1,
             name: "Jornada Tainha",
             address: [
-                { id: 1, name: "Praia do Sombrio Azul", check: false, category: "praia" },
-                { id: 2, name: "Trilha da Pedra Cantante", check: false, category: "trilha" },
-                { id: 3, name: "Cantina da Dona Cema", check: false, category: "larica" },
-                { id: 4, name: "Trilha do Morro Silencioso", check: false, category: "trilha" },
-                { id: 5, name: "Praia do Refúgio Claro", check: false, category: "praia" },
+                { id: 1, name: "Praia do Sombrio Azul", check: false, category: "PRAIA", image_url: "./elementos_temporarios/praia-campeche.jpg" },
+                { id: 2, name: "Trilha da Pedra Cantante", check: false, category: "TRILHA", image_url: "./elementos_temporarios/morro_da_lagoa.jpg" },
+                { id: 3, name: "Cantina da Dona Cema", check: false, category: "LARICA", image_url: "./elementos_temporarios/mercado_publico.jpeg" },
+                { id: 4, name: "Trilha do Morro Silencioso", check: false, category: "TRILHA", image_url: "./elementos_temporarios/mirante_morro_da_cruz.jpeg" },
+                { id: 5, name: "Praia do Refúgio Claro", check: false, category: "PRAIA", image_url: "./elementos_temporarios/praia-da-joaquina-florianopolis.webp" }
             ]
         },
         {
             id: 2,
             name: "Jornada Gastronômica",
             address: [
-                { id: 6, name: "Café do Sabiá Manhoso", check: false, category: "larica" },
-                { id: 7, name: "Cantinho da Massa da Ilha", check: false, category: "larica" },
-                { id: 8, name: "Lanchonete da Dona Gê", check: false, category: "larica" },
-                { id: 9, name: "Praia das Ondas Mansinhas", check: false, category: "praia" },
-                { id: 10, name: "Restinga do Pôr-Calmo", check: false, category: "praia" },
+                { id: 6, name: "Café do Sabiá Manhoso", check: false, category: "LARICA", image_url: "./elementos_temporarios/mercado_publico.jpeg" },
+                { id: 7, name: "Cantinho da Massa da Ilha", check: false, category: "LARICA", image_url: "./elementos_temporarios/museu_historico.jpeg" },
+                { id: 8, name: "Lanchonete da Dona Gê", check: false, category: "LARICA", image_url: "./elementos_temporarios/parque_da_luz.jpeg" },
+                { id: 9, name: "Praia das Ondas Mansinhas", check: false, category: "PRAIA", image_url: "./elementos_temporarios/praia_mole.jpg" },
+                { id: 10, name: "Restinga do Pôr-Calmo", check: false, category: "PRAIA", image_url: "./elementos_temporarios/ponta_de_canas.jpeg" }
             ]
         },
         {
             id: 3,
             name: "Jornada Histórica",
             address: [
-                { id: 11, name: "Estrada Velha do Miradouro", check: false, category: "trilha" },
-                { id: 12, name: "Vila Antiga do Ribeirão Pequeno", check: false, category: "trilha" },
-                { id: 13, name: "Empório do Seu Arlindo", check: false, category: "larica" },
-                { id: 14, name: "Praia do Sargaço Doce", check: false, category: "praia" },
+                { id: 11, name: "Estrada Velha do Miradouro", check: false, category: "TRILHA", image_url: "./elementos_temporarios/mirante_da_ponte_hercilio_luz.jpeg" },
+                { id: 12, name: "Vila Antiga do Ribeirão Pequeno", check: false, category: "TRILHA", image_url: "./elementos_temporarios/ribeirao_da-ilha.jpg" },
+                { id: 13, name: "Empório do Seu Arlindo", check: false, category: "LARICA", image_url: "./elementos_temporarios/praca-xv-de-novembro.jpg" },
+                { id: 14, name: "Praia do Sargaço Doce", check: false, category: "PRAIA", image_url: "./elementos_temporarios/praia-do_santinho.jpg" }
             ]
         }
     ]
+
     const iconsByCategory: Record<Category, LucideIcon> = {
-        praia: Volleyball,
-        trilha: TreePalm,
-        larica: ChefHat
+        PRAIA: Volleyball,
+        TRILHA: TreePalm,
+        LARICA: ChefHat
     }
     const colorsByCategory: Record<Category, string> = {
-        praia: "#FFB900",
-        trilha: "#00D492",
-        larica: "#A684FF"
+        PRAIA: "#FFB900",
+        TRILHA: "#00D492",
+        LARICA: "#A684FF"
     }
     const { addScore, removeScore } = useScore()
     function handleCheckChange(checked: boolean) {
@@ -110,13 +112,17 @@ export default function Journeys() {
                                                 </div>
                                             </Label>
                                             <button
-                                                onClick={() => setOpen(true)}
+                                                onClick={() => setOpenModalId(add.id)}
                                                 className="cursor-pointer font-bold text-[16px] text-[#0F4A5C]"
                                             >
                                                 ver mais
                                             </button>
 
-                                            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="larica" />
+                                            <ModalPontosTuristicosDiv
+                                                open={openModalId === add.id}
+                                                onOpenChange={(isOpen) => setOpenModalId(isOpen ? add.id : null)}
+                                                localData={add}
+                                            />
                                         </div>
                                     )
                                 })}
