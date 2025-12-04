@@ -5,7 +5,7 @@ export default function TainhoPortal({ text = "PINTOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     return (
         <div className="relative flex justify-center shrink-0 ">
             {/* Fundo */}
-            <Image src="/tainho/FundoFloripa.svg" alt="" width={440} height={788} />
+            <Image src="/tainho/FundoFloripa.svg" alt="" width={340} height={1} />
 
             {/* Balão de fala */}
             <TextBalloon text={text}/>
