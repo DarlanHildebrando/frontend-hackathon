@@ -22,9 +22,13 @@ export const authService = {
 
             const data = await response.json();
 
-            if (data.id) {
-                localStorage.setItem('id_cliente', data.id);
+            if (data) {
+                localStorage.setItem('user', JSON.stringify(data));
             }
+            if (!response.ok) {
+                throw new Error(data.message || 'Erro ao fazer login');
+            }
+
 
             return data;
         } catch (error: any) {

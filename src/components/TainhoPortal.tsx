@@ -3,9 +3,9 @@ import TextBalloon from "./TextBalloon";
 
 export default function TainhoPortal({ text = "PINTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" }) {
     return (
-        <div className="relative flex justify-center shrink-0 ">
+        <div className="relative flex justify-start items-start shrink-0 h-[508px]">
             {/* Fundo */}
-            <Image src="/tainho/FundoFloripa.svg" alt="" width={340} height={1} />
+            <Image src="/tainho/FundoFloripa.svg" alt="" width={340} height={508} />
 
             {/* Balão de fala */}
             <TextBalloon text={text}/>

@@ -25,26 +25,34 @@ export default function Journeys() {
     const journeys: Journey[] = [
         {
             id: 1,
-            name: "Jornada tainha",
+            name: "Jornada Tainha",
             address: [
-                { name: "Praia do não sei da onde", check: false, category: "praia", id: 1 }
+                { id: 1, name: "Praia do Sombrio Azul", check: false, category: "praia" },
+                { id: 2, name: "Trilha da Pedra Cantante", check: false, category: "trilha" },
+                { id: 3, name: "Cantina da Dona Cema", check: false, category: "larica" },
+                { id: 4, name: "Trilha do Morro Silencioso", check: false, category: "trilha" },
+                { id: 5, name: "Praia do Refúgio Claro", check: false, category: "praia" },
             ]
         },
         {
             id: 2,
-            name: "Jornada gastronômica",
+            name: "Jornada Gastronômica",
             address: [
-                { name: "Mercado Público de Floripa", check: false, category: "praia", id: 2 },
-                { name: "Trapiches da Beira-Mar", check: false, category: "praia", id: 3 },
-                { name: "Restaurante da Ilha", check: false, category: "praia", id: 4 }
+                { id: 6, name: "Café do Sabiá Manhoso", check: false, category: "larica" },
+                { id: 7, name: "Cantinho da Massa da Ilha", check: false, category: "larica" },
+                { id: 8, name: "Lanchonete da Dona Gê", check: false, category: "larica" },
+                { id: 9, name: "Praia das Ondas Mansinhas", check: false, category: "praia" },
+                { id: 10, name: "Restinga do Pôr-Calmo", check: false, category: "praia" },
             ]
         },
         {
             id: 3,
-            name: "Jornada histórica",
+            name: "Jornada Histórica",
             address: [
-                { name: "Ponte Hercílio Luz", check: false, category: "praia", id: 5 },
-                { name: "Centro Histórico", check: false, category: "praia", id: 6 }
+                { id: 11, name: "Estrada Velha do Miradouro", check: false, category: "trilha" },
+                { id: 12, name: "Vila Antiga do Ribeirão Pequeno", check: false, category: "trilha" },
+                { id: 13, name: "Empório do Seu Arlindo", check: false, category: "larica" },
+                { id: 14, name: "Praia do Sargaço Doce", check: false, category: "praia" },
             ]
         }
     ]

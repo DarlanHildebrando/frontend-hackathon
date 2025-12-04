@@ -116,3 +116,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar-track {
+  background: #F8FAFA;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #CDD1DB;
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #babec7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #babec7;
+}

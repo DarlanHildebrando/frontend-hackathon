@@ -50,9 +50,9 @@ export default function Sidebar() {
         >
           <Image
             src={getTainhoImage(score)}
-            width={28}
+            width={36}
             className={`${pathname === "/" && "border-white border rounded-[4px]"}`}
-            height={28}
+            height={36}
             alt="Tainho"
           />
           <span className="text-lg font-semibold">
