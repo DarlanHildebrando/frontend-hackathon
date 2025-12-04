@@ -116,7 +116,7 @@ export default function Journeys() {
                                                 ver mais
                                             </button>
 
-                                            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="trilha" />
+                                            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="larica" />
                                         </div>
                                     )
                                 })}
