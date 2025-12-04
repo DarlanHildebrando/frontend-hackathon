@@ -52,15 +52,6 @@ export default function Page() {
     return (
         <div>
 
-            <button
-                onClick={() => setOpen(true)}
-                className="text-blue-600 underline"
-            >
-                Ver Pontos Turísticos
-            </button>
-
-            <ModalPontosTuristicosDiv open={open} onOpenChange={setOpen} tema="trilha" />
-
             <img
                 src="./elements/waves_background.svg"
                 alt=""

@@ -38,12 +38,30 @@ export function ModalPontosTuristicosDiv({
         praia: "border-yellow-400"
     }
 
+    const temaConfig = {
+        larica: {
+            primary: "from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700",
+            bubble: "bg-purple-100",
+            button: "bg-purple-500 hover:bg-purple-600"
+        },
+        trilha: {
+            primary: "from-green-500 to-green-600 hover:from-green-600 hover:to-green-700",
+            bubble: "bg-green-100",
+            button: "bg-green-500 hover:bg-green-600"
+        },
+        praia: {
+            primary: "from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700",
+            bubble: "bg-yellow-100",
+            button: "bg-yellow-500 hover:bg-yellow-600"
+        },
+    }
+
     // Prompts pré-definidos que o usuário pode escolher
     const promptOptions = [
-        { id: "historia", label: "📖 História do lugar", prompt: "Conte a história deste lugar" },
-        { id: "curiosidades", label: "✨ Curiosidades", prompt: "Quais são as curiosidades sobre este lugar?" },
-        { id: "dicas", label: "💡 Dicas de visita", prompt: "Dê dicas para visitar este lugar" },
-        { id: "como-chegar", label: "🗺️ Como chegar", prompt: "Como chegar neste lugar?" }
+        { id: "historia", label: "📖 História do lugar", prompt: "Seja muito alegre e feliz enquanto responde!!! Conte a história deste lugar em 3 linhas, você é uma mascote (vc se chama tainho) de um site se comunicando com os espectadores (não use texto diferente na frase, ex: fonte em negrito)" },
+        { id: "curiosidades", label: "✨ Curiosidades", prompt: "Seja muito alegre enquanto responde!!! Quais são as curiosidades sobre este lugar? me conte em no maximo 3 linhas, você é uma mascote (vc se chama tainho) de um site se comunicando com os espectadores (não use texto diferente na frase, ex: fonte em negrito)" },
+        { id: "dicas", label: "💡 Dicas de visita", prompt: "Dê dicas para visitar este lugar, seja simpatico em quanto fala e responda muito resumidamente, você é uma mascote (vc se chama tainho) de um site se comunicando com os espectadores (não use texto diferente na frase, ex: fonte em negrito)" },
+        { id: "como-chegar", label: "🗺️ Como chegar", prompt: "Como chegar neste lugar? Se for possivel manda o endereço do local e seja muito breve na resposta, você é uma mascote (vc se chama tainho) de um site se comunicando com os espectadores (não use texto diferente na frase, ex: fonte em negrito)" }
     ]
 
     // Auto-scroll para última mensagem
@@ -69,23 +87,34 @@ export function ModalPontosTuristicosDiv({
         setIsLoading(true)
 
         try {
-            // AQUI É ONDE VOCÊ VAI FAZER A CHAMADA PRO SEU BACKEND
-            // Exemplo:
-            // const response = await fetch('/api/chat', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ 
-            //         prompt: prompt,
-            //         localId: "jurere" // ou o ID do local atual
-            //     })
-            // })
-            // const data = await response.json()
+            // Chamada para o backend do Gemini (SEM TOKEN)
+            console.log("🚀 Enviando requisição para o backend...") // DEBUG
             
-            // SIMULAÇÃO DE RESPOSTA (REMOVA ISSO QUANDO INTEGRAR COM O BACKEND)
-            await new Promise(resolve => setTimeout(resolve, 1500))
+            const response = await fetch("http://localhost:8080/gemini/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ 
+                    prompt: `${prompt} sobre a Praia de Jurerê em Florianópolis`
+                })
+            })
+
+            console.log("📡 Status da resposta:", response.status) // DEBUG
+
+            if (!response.ok) {
+                const errorText = await response.text()
+                console.error("❌ Erro do servidor:", errorText) // DEBUG
+                throw new Error(`Erro na requisição: ${response.status}`)
+            }
+
+            const data = await response.json()
+            console.log("✅ Resposta recebida:", data) // DEBUG
+            
+            // Adiciona a resposta do bot
             const botMessage: Message = {
                 id: (Date.now() + 1).toString(),
-                text: `Resposta da IA sobre: ${label}. Aqui viria o texto completo retornado pelo seu backend com informações sobre a Praia de Jurerê!`,
+                text: data.data || "Desculpe, não consegui gerar uma resposta.",
                 sender: "bot",
                 timestamp: new Date()
             }
@@ -109,7 +138,7 @@ export function ModalPontosTuristicosDiv({
 
     return (
         <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/20 backdrop-blur flex items-center justify-center z-50"
             onClick={() => onOpenChange(false)}
         >
             <div
@@ -139,7 +168,7 @@ export function ModalPontosTuristicosDiv({
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                         </p>
 
-                        <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                        <Button className={`w-full text-white font-bold ${temaConfig[tema].button}`}>
                             Ver no mapa
                         </Button>
                     </div>
@@ -168,7 +197,7 @@ export function ModalPontosTuristicosDiv({
                                             px-4 py-2.5 rounded-2xl max-w-[85%] shadow-sm text-sm
                                             ${message.sender === "user" 
                                                 ? "bg-white text-gray-800 rounded-br-none" 
-                                                : "bg-[#DFF1F6] text-gray-800 rounded-bl-none"
+                                                : `${temaConfig[tema].bubble} text-gray-800 rounded-bl-none`
                                             }
                                         `}
                                     >
@@ -186,7 +215,7 @@ export function ModalPontosTuristicosDiv({
                                         className="w-8 h-8 rounded-full mr-2 flex-shrink-0"
                                     />
                                     
-                                    <div className="bg-[#DFF1F6] text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-none shadow-sm">
+                                    <div className={`${temaConfig[tema].bubble} text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-none shadow-sm`}>
                                         <div className="flex space-x-1">
                                             <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
                                             <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
@@ -207,15 +236,14 @@ export function ModalPontosTuristicosDiv({
                                         key={option.id}
                                         onClick={() => handlePromptClick(option.prompt, option.label)}
                                         disabled={isLoading}
-                                        className="
+                                        className={`
                                             px-3 py-2 text-xs font-medium
-                                            bg-gradient-to-r from-blue-500 to-cyan-500
+                                            bg-gradient-to-r ${temaConfig[tema].primary}
                                             text-white rounded-lg
-                                            hover:from-blue-600 hover:to-cyan-600
                                             disabled:opacity-50 disabled:cursor-not-allowed
                                             transition-all duration-200
                                             shadow-sm hover:shadow-md
-                                        "
+                                        `}
                                     >
                                         {option.label}
                                     </button>
@@ -226,7 +254,11 @@ export function ModalPontosTuristicosDiv({
                         {/* AVATAR DO MASCOTE */}
                         <div className="absolute bottom-20 right-3">
                             <div className="relative">
-                               
+                                <img
+                                    src="./tainho/tainho_picture_profile.svg"
+                                    alt="Tainho"
+                                    className="w-16 h-16 drop-shadow-lg"
+                                />
                                 {isLoading && (
                                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse border-2 border-white"></div>
                                 )}
