@@ -1,4 +1,7 @@
-import { ICreateUser } from '@/types/user';
+// src/services/user/userService.ts
+
+import { ICreateUser, IUser } from '@/types/user';
+import { apiHelper } from '../apiHelper';
 
 const API_URL = 'http://localhost:8080';
 
@@ -10,7 +13,6 @@ export const userService = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-               
                 body: JSON.stringify(userData),
             });
 
@@ -24,5 +26,22 @@ export const userService = {
         } catch (error: any) {
             throw new Error(error.message || 'Erro ao conectar com o servidor');
         }
+    },
+
+    // Métodos protegidos que precisam de autenticação
+    async getUsers(): Promise<IUser[]> {
+        return apiHelper.get('/users');
+    },
+
+    async getUser(id: number): Promise<IUser> {
+        return apiHelper.get(`/users/${id}`);
+    },
+
+    async updateUser(id: number, userData: Partial<ICreateUser>): Promise<IUser> {
+        return apiHelper.put(`/users/${id}`, userData);
+    },
+
+    async deleteUser(id: number): Promise<void> {
+        return apiHelper.delete(`/users/${id}`);
     },
 };
