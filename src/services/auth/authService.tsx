@@ -26,10 +26,7 @@ export const authService = {
                 throw new Error(data.message || 'Erro ao fazer login');
             }
 
-            // Salva o token no localStorage
-            if (data.token) {
-                localStorage.setItem('authToken', data.token);
-            }
+            console.log(data)
 
             return data;
         } catch (error: any) {
