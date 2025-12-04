@@ -44,6 +44,7 @@ export default function Page() {
         }
 
         try {
+            console.log(formData)
             const response = await userService.createUser(formData);
             console.log('Usuário criado:', response);
             

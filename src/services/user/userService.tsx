@@ -1,14 +1,15 @@
 // src/services/user/userService.ts
 
-import { ICreateUser, IUser } from '@/types/user';
+import { IUpdate, User } from '@/types/user';
 import { apiHelper } from '../apiHelper';
+import { log } from 'console';
 
 const API_URL = 'http://localhost:8080';
 
 export const userService = {
 
     // Criar usuário
-    async createUser(userData: ICreateUser) {
+    async createUser(userData: any) {
         try {
             const response = await fetch(`${API_URL}/users`, {
                 method: 'POST',
@@ -74,12 +75,17 @@ export const userService = {
 
 
     // (Opcional) Atualizar usuário
-    async updateUser(id: string, updateData: Record<string, unknown>) {
+    async updateUser(id: number | null, updateData: IUpdate) {
+        console.log(updateData)
+        const token = localStorage.getItem("token");
+        console.log(token);
+        
         try {
             const response = await fetch(`${API_URL}/users/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(updateData),
             });

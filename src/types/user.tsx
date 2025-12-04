@@ -1,17 +1,33 @@
-export interface IUser {
+export interface User {
   id: number;
   name: string;
   email: string;
   password: string;
   current_coins: number;
   created_at: string;
-  roads: { nome: string, category: Category }[]
-  address: { nome: string, category: Category }[]
+  roads: Road[];
+  iat: number; // issued at (timestamp)
+  exp: number; // expiration (timestamp)
 }
-type Category = "praia" | "trilha" | "larica";
 
-export interface ICreateUser {
-  name: string;
-  email: string;
-  password: string;
+export interface Road {
+  id: number;
+  attempt_coins: number;
+  check: boolean;
+  created_at: string;
+  address: Address[];
 }
+
+export interface Address {
+  id: number;
+  name: string;
+  image_url: string;
+  category: Category;
+  check: boolean;
+}
+export type IUpdate = {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+export type Category = "PRAIA" | "TRILHA" | "LARICA";

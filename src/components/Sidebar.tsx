@@ -37,8 +37,8 @@ export default function Sidebar() {
         >
           <Image
             src={imgPerfil}
-            width={28}
-            height={28}
+            width={36}
+            height={36}
             alt="Perfil"
           />
           <span className="text-xl font-semibold">Perfil</span>

@@ -1,3 +1,5 @@
+import { User } from "@/types/user";
+import jwt from "jsonwebtoken";
 interface ILoginCredentials {
     email: string;
     password: string;
@@ -22,8 +24,8 @@ export const authService = {
 
             const data = await response.json();
 
-            if (data) {
-                localStorage.setItem('user', JSON.stringify(data));
+            if (data.token) {
+                localStorage.setItem('token', JSON.stringify(data.token));
             }
             if (!response.ok) {
                 throw new Error(data.message || 'Erro ao fazer login');
@@ -35,7 +37,36 @@ export const authService = {
             throw new Error(error.message || 'Erro ao conectar com o servidor');
         }
     },
-
+    decodeToken(token: string): User {
+        const decoded = jwt.decode(token, { complete: true });
+        if (!decoded) {
+            return {
+                id: 1,
+                name: "João Silva",
+                email: "joao@gmail.com",
+                password: "$2b$10$lFfx7X2p4TJpnet1Kc.qTu2ZXqmrqwVKzVC2I5T3d3SAVaJmFWs4G",
+                current_coins: 0,
+                created_at: "2025-12-04T13:46:24.852Z",
+                roads: [{
+                    id: 1,
+                    attempt_coins: 10,
+                    check: false,
+                    created_at: "2025-12-04T13:48:35.087Z",
+                    address: [
+                        {
+                            id: 1,
+                            name: "Praia Mole",
+                            image_url: "https://source.unsplash.com/600x400/?praia-mole",
+                            category: "PRAIA",
+                            check: false
+                        }]
+                }],
+                iat: 1764856473,
+                exp: 1764860073
+            }
+        }
+        return decoded
+    },
     logout() {
         localStorage.removeItem('authToken');
     },
