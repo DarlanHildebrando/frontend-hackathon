@@ -32,7 +32,7 @@ export default function page() {
             setForm({
                 name: user.name,
                 email: user.email,
-                password: ""
+                password: user.password
             })
         }
     }, [user])
@@ -40,7 +40,9 @@ export default function page() {
         function loadProfile() {
             try {
                 const token = JSON.parse(localStorage.getItem('token') || '{}');
+                console.log(token)
                 const response = authService.decodeToken(token)
+                console.log(response)
                 setUser(response)
             } catch (error) {
                 console.error(error)
@@ -198,7 +200,7 @@ export default function page() {
                                 </div>
                                 <div className="flex flex-col gap-3 py-3">
                                     {addresses.map(item => (
-                                        <div key={1} className="flex items-center justify-between gap-3 w-full">
+                                        <div key={item.id} className="flex items-center justify-between gap-3 w-full">
                                             <span
                                                 className={`font-semibold text-[16px]`}
                                                 style={{ color: colorsByCategory[item.category] }}>
@@ -221,13 +223,13 @@ export default function page() {
                             </div>
 
                             <div className="flex flex-col gap-3 py-3">
-                                {user?.roads.map((item, idx) => (
-                                    <div key={idx} className="flex items-center justify-between gap-3 w-full text-[#0F4A5C]">
+                                {user?.roads.map((item) => (
+                                    <div key={item.id} className="flex items-center justify-between gap-3 w-full text-[#0F4A5C]">
                                         <span
                                             className={`font-semibold text-[16px]`}
                                         // style={{ color: colorsByCategory[item.category] }}
                                         >
-                                            {item.id}
+                                            {item.name}
                                         </span>
                                         <Check
                                             className=" size-6"

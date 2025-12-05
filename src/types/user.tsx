@@ -16,6 +16,7 @@ export interface Road {
   check: boolean;
   created_at: string;
   address: Address[];
+  name:string
 }
 
 export interface Address {

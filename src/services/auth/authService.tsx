@@ -23,6 +23,7 @@ export const authService = {
             });
 
             const data = await response.json();
+            console.log(data)
 
             if (data.token) {
                 localStorage.setItem('token', JSON.stringify(data.token));
@@ -39,11 +40,12 @@ export const authService = {
     },
     decodeToken(token: string): User {
         const decoded = jwt.decode(token, { complete: true });
-        if (!decoded) {
+        console.log(decoded)
+        if (!decoded?.payload) {
             return {
                 id: 1,
-                name: "João Silva",
-                email: "joao@gmail.com",
+                name: "Ana Alara",
+                email: "ana@gmail.com",
                 password: "$2b$10$lFfx7X2p4TJpnet1Kc.qTu2ZXqmrqwVKzVC2I5T3d3SAVaJmFWs4G",
                 current_coins: 0,
                 created_at: "2025-12-04T13:46:24.852Z",
@@ -65,7 +67,7 @@ export const authService = {
                 exp: 1764860073
             }
         }
-        return decoded
+        return decoded.payload
     },
     logout() {
         localStorage.removeItem('authToken');
